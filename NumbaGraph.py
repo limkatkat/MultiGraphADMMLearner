@@ -1,6 +1,5 @@
 import numpy as np
 from numpy.typing import NDArray, DTypeLike
-from typing import Optional
 import numba as nb
 
 
@@ -93,7 +92,7 @@ class GraphOperator_Unsafe:
         self, 
         input_tensor: NDArray, 
         out_shape: tuple[int, ...], 
-        dtype: Optional[DTypeLike] = None) -> NDArray:
+        dtype: DTypeLike|None = None) -> NDArray:
         
         if dtype is None:
             dtype = input_tensor.dtype
@@ -102,7 +101,7 @@ class GraphOperator_Unsafe:
     def Q(
         self, 
         edges: NDArray, 
-        out: Optional[NDArray]=None) -> NDArray:
+        out: NDArray|None=None) -> NDArray:
         
         batch_dims = edges.shape[:-1]
         if out is None:
@@ -116,7 +115,7 @@ class GraphOperator_Unsafe:
     def Qstar(
         self, 
         adj_matrix: NDArray, 
-        out: Optional[NDArray]=None) -> NDArray:
+        out: NDArray|None=None) -> NDArray:
         
         batch_dims = adj_matrix.shape[:-2]
         
@@ -129,7 +128,7 @@ class GraphOperator_Unsafe:
     def P(
         self, 
         edges: NDArray, 
-        out: Optional[NDArray]=None) -> NDArray:
+        out: NDArray|None=None) -> NDArray:
         
         batch_dims = edges.shape[:-1]
         
@@ -149,7 +148,7 @@ class GraphOperator_Unsafe:
     def Pstar(
         self, 
         degree: NDArray, 
-        out: Optional[NDArray]=None) -> NDArray:
+        out: NDArray|None=None) -> NDArray:
         
         batch_dims = degree.shape[:-1]
         
@@ -169,7 +168,7 @@ class GraphOperator_Unsafe:
     def R(
         self, 
         edges: NDArray, 
-        out: Optional[NDArray]=None) -> NDArray:
+        out: NDArray|None=None) -> NDArray:
         
         batch_dims = edges.shape[:-1]
         
@@ -184,7 +183,7 @@ class GraphOperator_Unsafe:
     def Rstar(
         self, 
         lap_matrix: NDArray, 
-        out: Optional[NDArray]=None) -> NDArray:
+        out: NDArray|None=None) -> NDArray:
         
         batch_dims = lap_matrix.shape[:-2]
         
@@ -200,7 +199,7 @@ class GraphOperator_Unsafe:
     def A(
         self, 
         edges: NDArray, 
-        out: Optional[NDArray] = None) -> NDArray:
+        out: NDArray|None=None) -> NDArray:
         
         batch_dims = edges.shape[:-1]
         

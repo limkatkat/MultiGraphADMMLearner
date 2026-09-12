@@ -1,4 +1,4 @@
-from typing import Optional, cast
+from typing import cast
 import numpy as np
 from numpy.typing import NDArray
 
@@ -6,7 +6,7 @@ from numpy.typing import NDArray
 # Calculate the difference between signals
 def calculate_signal_difference(
     signals: NDArray, 
-    output_buffer: Optional[NDArray]=None) -> NDArray:
+    output_buffer: NDArray|None=None) -> NDArray:
     
     batch_size: tuple[int, ...] = signals.shape[:-2]
     num_nodes: int = signals.shape[-1]
