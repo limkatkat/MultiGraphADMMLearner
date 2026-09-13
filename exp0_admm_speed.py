@@ -1,4 +1,12 @@
 import os
+
+
+
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
+os.environ["OMP_NUM_THREADS"] = "1"
+
+
 import time
 from pathlib import Path
 
@@ -14,11 +22,7 @@ import NumbaGraph
 from learn_graph_utility import PrepareLogDegreeGraphLearner
 
 
-os.environ["OPENBLAS_NUM_THREADS"] = "1"
-os.environ["MKL_NUM_THREADS"] = "1"
-os.environ["OMP_NUM_THREADS"] = "1"
-
-
+# TEST WALL-CLOKC ONLY
 def run_admm_only():
     ts_dir = Path('Schaefer')
     roi_counts = [100, 500, 1000]
