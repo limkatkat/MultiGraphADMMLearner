@@ -230,11 +230,14 @@ class MultiGraphADMMLearner:
 
     # Edge vector group: batch_size x num_graphs x num_edges
     # Signal difference vector group: batch_size x num_graphs x num_edges
+    # NOTE: Because a relatively large dynamic adjustment interval (100) is used, 
+    # the coarse-to-fine mechanism is not obvious between short iteration process.
     def __call__(self, 
                  edges: NDArray, 
                  signal_diff: NDArray,
                  expected_edge_ratio: NDArray|None=None,
-                 iteration_record: StateRecorder|None=None) -> Tuple[NDArray, NDArray, StateRecorder|None]:
+                 iteration_record: StateRecorder|None=None,
+                 show_error_interval=-1) -> Tuple[NDArray, NDArray, StateRecorder|None]:
         
         batch_shape = signal_diff.shape[:-1]
         num_graphs = np.prod(batch_shape).item()
@@ -302,6 +305,9 @@ class MultiGraphADMMLearner:
             constraint_nn, constraint_dict = self.update_params(edges, constraint_nn, constraint_dict)
             err_primal_total, err_dual_total = self.calculate_total_error(constraint_nn, constraint_dict, err_primal_accum=err_primal_total, err_dual_accum=err_dual_total)
             np.logical_or(err_primal_total >= self.max_tolerance, err_dual_total >= self.max_tolerance, out=unconverged_mask)
+            if show_error_interval > 0 and current_iteration % show_error_interval == 0:
+                print ("primal error [%d] = %s" % (current_iteration, err_primal_total))
+                print ("dual error [%d] = %s" % (current_iteration, err_dual_total))
             
             if iteration_record and num_graphs == 1 and iteration_record.should_record(current_iteration):
                 

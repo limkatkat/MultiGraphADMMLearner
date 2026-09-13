@@ -285,8 +285,8 @@ def main():
                    fontsize=18, title='Algorithms', title_fontsize=18)
 
         ylim_map = {
-            'dice':        (0.9, 1.1),
-            'nn_ratio':    (-0.1, 1.1),
+            'dice':        (0.9, 1.01),
+            'nn_ratio':    (-0.1, 1.01),
             'rel_err_arr': (-10, 1),
         }
 
@@ -392,7 +392,7 @@ def main():
 
     _draw_supp_figure_proper('dice', 'Dice Coefficient', 'dice_coefficient_allROI')
     _draw_supp_figure_proper('rel_err_arr', 'Relative Error', 'relative_error_allROI')
-    _draw_supp_figure_proper('nn_ratio', '# Non-zero Edges / Total Edges', 'nonzero_edge_ratio_allROI')
+    _draw_supp_figure_proper('nn_ratio', 'Edge Densities', 'nonzero_edge_ratio_allROI')
 
     # ===============================================================
     # Figure 4 (Main Text): ROI=500
@@ -409,7 +409,7 @@ def main():
 
         row_configs = [
             ('dice',        'Dice Coefficient',              True),
-            ('nn_ratio',    '# Non-zero Edges / Total Edges', False),
+            ('nn_ratio',    'Edge Densities', False),
             ('rel_err_arr', 'Log₁₀ Relative Error',          False),
         ]
 
